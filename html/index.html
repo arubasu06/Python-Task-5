@@ -1,41 +1,44 @@
 <html>
   <head>
       <meta charset="utf-8">
-      <title>list</title>
+      <title>商品MENU</title>
       <link rel="stylesheet" href="stylesheet.css">
   </head>
   <body>
         <h2>商品購入アプリ</h2>
         <div class="">
-            MENUファイル名：<input id="csv_name" type="text"></input><br/>
-            <button id="search">MENUを決定する</button><br/>
+            MENUファイル名：<input id="csv_name" type="text"></input>
+            <button id="search">マスタを決定する</button><br/>
             <div>
-                <textarea id="result" class="menu-view-area"></textarea>
+                商品一覧<br/><textarea id="search" class="menu-view-area"></textarea>
         　　</div>
-            商品コード：<input id="serch_word" type="text"></input><br/>
-            購入個数：<input id="buy_item_count" type="text"></input><br/>
-            <button id="search">購入する</button><br/>
+            
 
+            商品コード：<input id="buy_item_code" type="text"></input>
+            購入個数：<input id="buy_item_count" type="text"></input><br/>
+            <button id="search">商品追加</button><br/><br/>
+            
+            商品カート
             <div>
                 <textarea id="result" class="pay-money-area"></textarea>
         　　</div>            
-            支払金額：<input id="self.money" type="text"></input><br/>
+            カート内の商品数：<textarea id="pay-money-area" class="menu-view-area"></textarea><br/>
+            合計金額：<textarea id="pay-money-area" class="menu-view-area"></textarea><br/>
+            支払金額入力：：<input id="serch_word" type="text"></input><br/>
             <button id="search">支払う</button><br/>
-            <div>
-            <textarea id="result" class="change-money-area"></textarea>
-            </div>
+            
 
         </div>
         <script type="text/javascript" src="./eel.js"></script>
         <script>
             search.addEventListener('click', () => {
                 //alert(serch_word.value)
-                eel.kimetsu_search(serch_word.value,csv_name.value)
+                eel.main(item_code, item_name, price)
             })
-
-            eel.expose(menu_view_js)
+            
+            eel.expose(menu_view_js);
             function menu_view_js(text){
-                result.value += text + "\n"
+                menu-view-area.value += text + "\n"
             }
             eel.expose(pay_money_js)
             function pay_money_js(text){
