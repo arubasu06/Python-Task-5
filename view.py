@@ -7,8 +7,8 @@ end_point="index.html"
 size=(800,800)
 
 @ eel.expose
-def main(word,item_code, item_name, price):
-    search.main(word, item_code, item_name, price)
+def main(item_code, item_name, price):
+    search.main(item_code, item_name, price)
 
 
 desktop.start(app_name,end_point,size)

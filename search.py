@@ -109,15 +109,16 @@ def add_item_master_by_csv(csv_path):
         print("-----------------------")
         sys.exit()
 
-def main(word,item_code, item_name, price):
+
+def main(item_code, item_name, price):
     item_master=add_item_master_by_csv(ITEM_MASTER_CSV_PATH) # CSVからマスタへ登録
     order=Order(item_master) #マスタをオーダーに登録
 
     order.view_order()
-    eel.menu_view_js("商品一覧は『{}』です".format(word))
+    eel.menu_view_js
 
     order.input_order()
-    eel.pay_money_js("購入金額は『{}』円です".format(word))
+    eel.expose(order.input_order())
 
     order.input_change_money()
-    eel.menu_view_js("お釣りはは『{}』です".format(word))
+    eel.expose(order.input_change_money())
