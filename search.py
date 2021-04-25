@@ -41,17 +41,17 @@ class Order:
     def input_order(self):
         print("いらっしゃいませ！")
         while True:
-            buy_item_code=input("商品番号を入力。登録を完了する場合は、0を入力してください >>> ")
+            buy_item_code=input("商品番号を入力。注文を完了する場合は、0を入力してください >>> ")
             if int(buy_item_code)!=0:
                 check=self.get_item_data(buy_item_code)
                 if check!=None:
-                    print("{} が登録されました".format(check[0]))
+                    print("{} が注文されました".format(check[0]))
                     buy_item_count=input("購入数を入力してください　>>> ")
                     self.add_item_order(buy_item_code,buy_item_count)
                 else:
-                    print("「{}」は商品マスタに存在しません".format(buy_item_code))
+                    print("「{}」は商品MENUに存在しません".format(buy_item_code))
             else:
-                print("商品登録を終了します。")
+                print("商品注文を終了します。")
                 break 
     
     def view_order(self):
@@ -104,21 +104,22 @@ def add_item_master_by_csv(csv_path):
         print("{}品の登録を完了。".format(count))
         print("-----------------------")
         return item_master
+
     except:
         print("マスタ登録が失敗")
         print("-----------------------")
         sys.exit()
 
 
-def main(item_code, item_name, price):
+def main(item_code, item_name, price):    
     item_master=add_item_master_by_csv(ITEM_MASTER_CSV_PATH) # CSVからマスタへ登録
-    order=Order(item_master) #マスタをオーダーに登録
-
+    eel.item_master()()
+    
+    order=Order(item_master) #マスタをオーダーに登録   
+    
     order.view_order()
-    eel.menu_view_js
-
+ 
     order.input_order()
-    eel.expose(order.input_order())
-
+ 
     order.input_change_money()
-    eel.expose(order.input_change_money())
+ 
