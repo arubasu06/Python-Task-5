@@ -10,24 +10,25 @@
             MENUファイル名：<input id="csv_name" type="text"></input>
             <button id="search">マスタを決定する</button><br/>
             <div>
-                商品一覧<br/><textarea id="search" class="menu-view-area"></textarea>
+            商品一覧:<br/><textarea id="result" class="menu-view-area"></textarea>
         　　</div>
-            
-
+        
             商品コード：<input id="buy_item_code" type="text"></input>
             購入個数：<input id="buy_item_count" type="text"></input><br/>
             <button id="search">商品追加</button><br/><br/>
             
-            商品カート
+            注文商品一覧
             <div>
-                <textarea id="result" class="pay-money-area"></textarea>
-        　　</div>            
-            カート内の商品数：<textarea id="pay-money-area" class="menu-view-area"></textarea><br/>
-            合計金額：<textarea id="pay-money-area" class="menu-view-area"></textarea><br/>
-            支払金額入力：：<input id="serch_word" type="text"></input><br/>
-            <button id="search">支払う</button><br/>
-            
+                <textarea id="result" class="purchase-item-area"></textarea>
+        　　</div>
 
+            合計金額：<textarea id="total-fee-area" class="total-fee-area"></textarea><br/>
+
+            支払金額入力：：<input id="money" type="text"></input><br/>
+            <button id="search">支払う</button><br/>
+
+            お釣り：<textarea id="change_money" class="change-area"></textarea><br/>
+          
         </div>
         <script type="text/javascript" src="./eel.js"></script>
         <script>
@@ -37,8 +38,8 @@
             })
             
             eel.expose(menu_view_js);
-            function menu_view_js(text){
-                menu-view-area.value += text + "\n"
+            function menu_view_js(item_name,price,item_code){
+                result.value += text + "\n"
             }
             eel.expose(pay_money_js)
             function pay_money_js(text){
