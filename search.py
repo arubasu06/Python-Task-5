@@ -67,11 +67,15 @@ class Order:
             self.sum_count+=int(item_count)
             receipt_data="{0}.{2}({1}) : ￥{3:,}　{4}個 = ￥{5:,}".format(number,item_order,result[0],result[1],item_count,int(result[1])*int(item_count))
             self.write_receipt(receipt_data)
+            
+            eel.buy_item_view_js(self.write_receipt(receipt_data))
+            
             number+=1
 
         # 合計金額、個数の表示
         self.write_receipt("-----------------------------------------------")
         self.write_receipt("合計金額:￥{:,} {}個".format(self.sum_price,self.sum_count))
+        eel.buy_item_view_js("合計金額:￥『{:,}』 『{}』個".format(self.sum_price,self.sum_count))
 
     def input_change_money(self):
         while True:
@@ -79,7 +83,9 @@ class Order:
             self.change_money = int(self.money) - self.sum_price
             if self.change_money>=0:
                 print("投入金額は" + str(self.money) + '円です')
+                eel.pay_money_js("投入金額は" + str(self.money) + '円です')
                 print("お釣りは" + str(self.change_money) + '円です')
+                eel.pay_money_js("お釣りは" + str(self.change_money) + '円です')
                 break
             else:
                 print("お預かり金が不足しています。再度入力してください")
@@ -100,26 +106,30 @@ def add_item_master_by_csv(csv_path):
         for item_code,item_name,price in zip(list(item_master_df["item_code"]),list(item_master_df["item_name"]),list(item_master_df["price"])):
             item_master.append(Food_MenuItem(item_code,item_name,price))
             print("{}:{}円  商品番号({})".format(item_name,price,item_code))
+
+            eel.menu_view_js("『{}』:『{}』円  商品番号(『{}』)".format(item_name,price,item_code))
+            
             count+=1
         print("{}品の登録を完了。".format(count))
+
+        eel.menu_view_js("『{}』品の登録を完了。".format(count))
+        
         print("-----------------------")
         return item_master
-
     except:
         print("マスタ登録が失敗")
         print("-----------------------")
         sys.exit()
 
 
-def main(item_code, item_name, price):    
+def main():    
     item_master=add_item_master_by_csv(ITEM_MASTER_CSV_PATH) # CSVからマスタへ登録
-    eel.item_master()()
     
-    order=Order(item_master) #マスタをオーダーに登録   
-    
-    order.view_order()
- 
-    order.input_order()
- 
+    order=Order(item_master)
+
+    order.input_order()    
+    order.view_order() 
     order.input_change_money()
- 
+
+if __name__ == "__main__":
+    main()
