@@ -40,6 +40,7 @@ class Order:
 
     def input_order(self):
         print("いらっしゃいませ！")
+        eel.buy_item_view_js("いらっしゃいませ！")
         while True:
             buy_item_code=input("商品番号を入力。注文を完了する場合は、0を入力してください >>> ")
             if int(buy_item_code)!=0:
@@ -50,8 +51,10 @@ class Order:
                     self.add_item_order(buy_item_code,buy_item_count)
                 else:
                     print("「{}」は商品MENUに存在しません".format(buy_item_code))
+                    eel.buy_item_view_js("{}は商品MENUに存在しません")
             else:
-                print("商品注文を終了します。")
+                print("商品注文を終了します")
+                eel.buy_item_view_js("商品注文を終了します")
                 break 
     
     def view_order(self):
@@ -104,16 +107,17 @@ def add_item_master_by_csv(csv_path):
         for item_code,item_name,price in zip(list(item_master_df["item_code"]),list(item_master_df["item_name"]),list(item_master_df["price"])):
             item_master.append(Food_MenuItem(item_code,item_name,price))
             print("{}:{}円  商品番号({})".format(item_name,price,item_code))
-            eel.menu_view_js("『{}』:『{}』円  商品番号(『{}』)".format(item_name,price,item_code))    
+            eel.menu_view_js("{}:{}円  商品番号({})".format(item_name,price,item_code))()  
             count+=1
         print("{}品の登録を完了。".format(count))
-        eel.menu_view_js("『{}』品の登録を完了。".format(count))
+        eel.menu_view_js("-----------{}品の登録を完了-----------".format(count))
         
         print("-----------------------")
         return item_master
     except:
-        print("マスタ登録が失敗")
+        print("-----------マスタ登録が失敗-----------")
         print("-----------------------")
+        eel.menu_view_js("-----------マスタ登録が失敗-----------")
         sys.exit()
 
 
