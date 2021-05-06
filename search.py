@@ -67,9 +67,7 @@ class Order:
             self.sum_count+=int(item_count)
             receipt_data="{0}.{2}({1}) : ￥{3:,}　{4}個 = ￥{5:,}".format(number,item_order,result[0],result[1],item_count,int(result[1])*int(item_count))
             self.write_receipt(receipt_data)
-            
-            eel.buy_item_view_js(self.write_receipt(receipt_data))
-            
+            eel.buy_item_view_js("『{0}』.『{2}』(『{1}』) : ￥『{3:,}』　『{4}』個 = ￥『{5:,}』".format(number,item_order,result[0],result[1],item_count,int(result[1])*int(item_count)))
             number+=1
 
         # 合計金額、個数の表示
@@ -106,12 +104,9 @@ def add_item_master_by_csv(csv_path):
         for item_code,item_name,price in zip(list(item_master_df["item_code"]),list(item_master_df["item_name"]),list(item_master_df["price"])):
             item_master.append(Food_MenuItem(item_code,item_name,price))
             print("{}:{}円  商品番号({})".format(item_name,price,item_code))
-
-            eel.menu_view_js("『{}』:『{}』円  商品番号(『{}』)".format(item_name,price,item_code))
-            
+            eel.menu_view_js("『{}』:『{}』円  商品番号(『{}』)".format(item_name,price,item_code))    
             count+=1
         print("{}品の登録を完了。".format(count))
-
         eel.menu_view_js("『{}』品の登録を完了。".format(count))
         
         print("-----------------------")
@@ -124,9 +119,7 @@ def add_item_master_by_csv(csv_path):
 
 def main():    
     item_master=add_item_master_by_csv(ITEM_MASTER_CSV_PATH) # CSVからマスタへ登録
-    
     order=Order(item_master)
-
     order.input_order()    
     order.view_order() 
     order.input_change_money()
