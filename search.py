@@ -40,7 +40,6 @@ class Order:
 
     def input_order(self):
         print("いらっしゃいませ！")
-        eel.buy_item_view_js("いらっしゃいませ！")
         while True:
             buy_item_code=input("商品番号を入力。注文を完了する場合は、0を入力してください >>> ")
             if int(buy_item_code)!=0:
@@ -49,12 +48,13 @@ class Order:
                     print("{} が注文されました".format(check[0]))
                     buy_item_count=input("購入数を入力してください　>>> ")
                     self.add_item_order(buy_item_code,buy_item_count)
+                    eel.buy_item_view_js("{0} : 単価 {1} 円 が {1} 個注文登録されました".format(buy_item_code,buy_item_count))
                 else:
                     print("「{}」は商品MENUに存在しません".format(buy_item_code))
                     eel.buy_item_view_js("{}は商品MENUに存在しません")
             else:
                 print("商品注文を終了します")
-                eel.buy_item_view_js("商品注文を終了します")
+                #eel.buy_item_view_js("商品注文を終了します")
                 break 
     
     def view_order(self):
@@ -70,13 +70,13 @@ class Order:
             self.sum_count+=int(item_count)
             receipt_data="{0}.{2}({1}) : ￥{3:,}　{4}個 = ￥{5:,}".format(number,item_order,result[0],result[1],item_count,int(result[1])*int(item_count))
             self.write_receipt(receipt_data)
-            eel.buy_item_view_js("『{0}』.『{2}』(『{1}』) : ￥『{3:,}』　『{4}』個 = ￥『{5:,}』".format(number,item_order,result[0],result[1],item_count,int(result[1])*int(item_count)))
+            #eel.buy_item_view_js("{0}.{2}({1}) : ￥{3:,}　{4}個 = ￥{5:,}".format(number,item_order,result[0],result[1],item_count,int(result[1])*int(item_count)))
             number+=1
 
         # 合計金額、個数の表示
         self.write_receipt("-----------------------------------------------")
         self.write_receipt("合計金額:￥{:,} {}個".format(self.sum_price,self.sum_count))
-        eel.buy_item_view_js("合計金額:￥『{:,}』 『{}』個".format(self.sum_price,self.sum_count))
+        eel.pay_money_js("合計金額:￥{:,} 購入個数{}個".format(self.sum_price,self.sum_count))
 
     def input_change_money(self):
         while True:
@@ -84,14 +84,15 @@ class Order:
             self.change_money = int(self.money) - self.sum_price
             if self.change_money>=0:
                 print("投入金額は" + str(self.money) + '円です')
-                eel.pay_money_js("投入金額は" + str(self.money) + '円です')
                 print("お釣りは" + str(self.change_money) + '円です')
-                eel.pay_money_js("お釣りは" + str(self.change_money) + '円です')
+                eel.change_js("お釣りは" + str(self.change_money) + '円です')
                 break
             else:
                 print("お預かり金が不足しています。再度入力してください")
-        
+                eel.change_js("お預かり金が不足しています。再度入力してください")
+
         print("お買い上げありがとうございます")
+        eel.change_js("お買い上げありがとうございます")
 
     def write_receipt(self,text):
         print(text)
@@ -107,13 +108,14 @@ def add_item_master_by_csv(csv_path):
         for item_code,item_name,price in zip(list(item_master_df["item_code"]),list(item_master_df["item_name"]),list(item_master_df["price"])):
             item_master.append(Food_MenuItem(item_code,item_name,price))
             print("{}:{}円  商品番号({})".format(item_name,price,item_code))
-            eel.menu_view_js("{}:{}円  商品番号({})".format(item_name,price,item_code))()  
+            eel.menu_view_js("{}:{}円  商品番号:{}".format(item_name,price,item_code))
             count+=1
         print("{}品の登録を完了。".format(count))
         eel.menu_view_js("-----------{}品の登録を完了-----------".format(count))
         
         print("-----------------------")
         return item_master
+
     except:
         print("-----------マスタ登録が失敗-----------")
         print("-----------------------")
