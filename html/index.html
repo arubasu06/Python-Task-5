@@ -2,14 +2,15 @@
   <head>
       <meta charset="utf-8">
       <title>商品MENU</title>
-      <link rel="stylesheet" href="stylesheet.css">
+      <link rel="stylesheet" href="style.css">
   </head>
   <body>
         <h2>商品購入アプリ</h2>
         <div class="">
+            CSVファイル名：<input type="text" id="csv_name"></input><br>
             <button id="listMenu">メニューを出力する</button><br/>
         <div>
-            商品一覧:<br/><textarea id="result" class="menu-view-area"></textarea>
+            メニュー:<br/><textarea id="result" class="menu-view-area"></textarea>
         </div>
         <div>
             商品コード：<input id="buy_item_code" type="text"></input>
@@ -17,18 +18,25 @@
             <button id="order">商品追加</button><br/><br/>
         </div>
         <div>
-            注文商品一覧
+            注文商品一覧:<br/>
             <textarea id="order_result" class="buy_item_area"></textarea>
         </div>
+
+        <div class="">
+            <button id="summary">合計金額表示</button><br/>
+        </div>
+
         <div>
-            合計金額：<textarea id="total_fee" class="total-fee-area"></textarea><br/>
+            合計金額：<br/>
+            <textarea id="total_fee" class="total-fee-area"></textarea><br/>
         </div>
         <div>
             支払金額入力：<input id="money" type="text"></input><br/>
-            <button id="input">支払う</button><br/>
+            <br/><button id="input">支払う</button><br/>
         </div>
         <div>
-            お釣り：<textarea id="change" class="change-area"></textarea><br/>
+            お釣り：<br/>
+            <textarea id="change" class="change-area"></textarea><br/>
         </div>
         </div>
         <script type="text/javascript" src="./eel.js"></script>
@@ -37,11 +45,15 @@
                 eel.main()
             })
             order.addEventListener('click', () => {
-                eel.main(buy_item_code.value,buy_item_count.value)
+                eel.main(buy_item_code.value, buy_item_count.value)
+            })
+            summary.addEventListener('click', () => {
+                eel.main()
             })
             input.addEventListener('click', () => {
                 eel.main()
             })
+
             eel.expose(menu_view_js);
             function menu_view_js(text){
                 result.value += text + "\n"
@@ -52,7 +64,11 @@
             }
             eel.expose(pay_money_js);
             function pay_money_js(text){
-                input.value += text + "\n"
+                total_fee.value += text + "\n"
+            }
+            eel.expose(change_js);
+            function change_js(text){
+                change.value += text + "\n"
             }
         </script>
     </body>
