@@ -31,7 +31,7 @@
             <textarea id="total_fee" class="total-fee-area"></textarea><br/>
         </div>
         <div>
-            支払金額入力：<input id="money" type="text"></input><br/>
+            支払金額入力：<input id="change_money" type="text"></input><br/>
             <br/><button id="input">支払う</button><br/>
         </div>
         <div>
@@ -51,7 +51,7 @@
                 eel.main()
             })
             input.addEventListener('click', () => {
-                eel.main()
+                eel.main(change_money.value)
             })
 
             eel.expose(menu_view_js);
