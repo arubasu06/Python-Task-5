@@ -42,7 +42,7 @@
         <script type="text/javascript" src="./eel.js"></script>
         <script>
             listMenu.addEventListener('click', () => {
-                eel.main()
+                eel.main(csv_name.value)
             })
             order.addEventListener('click', () => {
                 eel.main(buy_item_code.value, buy_item_count.value)
