@@ -48,14 +48,14 @@ class Order:
                     print("{} が注文されました".format(check[0]))
                     buy_item_count=input("購入数を入力してください　>>> ")
                     self.add_item_order(buy_item_code,buy_item_count)
-                    eel.buy_item_view_js("{0} : 単価 {1} 円 が {1} 個注文登録されました".format(buy_item_code,buy_item_count))
+                    eel.buy_item_view_js("{0} が {1} 個注文登録されました".format(buy_item_code,buy_item_count))
                 else:
                     print("「{}」は商品MENUに存在しません".format(buy_item_code))
                     eel.buy_item_view_js("{}は商品MENUに存在しません")
             else:
                 print("商品注文を終了します")
                 #eel.buy_item_view_js("商品注文を終了します")
-                break 
+                break
     
     def view_order(self):
         number=1
@@ -76,9 +76,9 @@ class Order:
         # 合計金額、個数の表示
         self.write_receipt("-----------------------------------------------")
         self.write_receipt("合計金額:￥{:,} {}個".format(self.sum_price,self.sum_count))
-        eel.pay_money_js("合計金額:￥{:,} 購入個数{}個".format(self.sum_price,self.sum_count))
+        eel.pay_money_js("合計金額:￥{:,} 購入数{}個".format(self.sum_price,self.sum_count))
 
-    def input_change_money(self):
+    def input_change_money(self,change_money):
         while True:
             self.money = input("投入金額を入力してください >>> ")
             self.change_money = int(self.money) - self.sum_price
@@ -123,12 +123,13 @@ def add_item_master_by_csv(csv_path):
         sys.exit()
 
 
-def main():    
+def main(csv_name,buy_item_code,buy_item_count,change_money):    
     item_master=add_item_master_by_csv(ITEM_MASTER_CSV_PATH) # CSVからマスタへ登録
     order=Order(item_master)
     order.input_order()    
+
     order.view_order() 
     order.input_change_money()
 
 if __name__ == "__main__":
-    main()
+    main(csv_name,buy_item_code,buy_item_count,change_money)
