@@ -22,6 +22,5 @@ def main_3():
 def main_4(pay_money):
     search.main_4(pay_money)
 
-
 desktop.start(app_name,end_point,size)
 #desktop.start(size=size,appName=app_name,endPoint=end_point)
