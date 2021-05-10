@@ -66,12 +66,12 @@ class Order:
         eel.pay_money_js("合計金額:￥{:,} 購入数{}個".format(self.sum_price,self.sum_count))
         eel.pay_money_js("-----------------------------------------------")
 
-    def input_change_money(self,change_money):
+    def input_change_money(self,pay_money):
         self.change_money = int(self.pay_money) - self.sum_price
         if self.change_money>=0:
             print("投入金額は" + str(self.pay_money) + '円です')
             print("お釣りは" + str(self.change_money) + '円です')
-            eel.change_money_js("お釣り  ：{}円".format(change_money))
+            eel.change_money_js("お釣り  ：{}円".format(self.change_money))
             print("お買い上げありがとうございます!")
             eel.change_money_js("お買い上げありがとうございます!")
         else:
