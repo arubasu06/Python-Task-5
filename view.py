@@ -15,8 +15,8 @@ def main_2(buy_item_code,buy_item_count):
     search.main_2(buy_item_code,buy_item_count)
 
 @ eel.expose
-def main_3():
-    search.main_3()
+def main_3(self):
+    search.main_3(self)
 
 @ eel.expose
 def main_4(pay_money):

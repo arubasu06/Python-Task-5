@@ -111,14 +111,14 @@ def main_1(csv_name):#メニューの登録処理
     # CSVからマスタへ登録
     item_master = add_item_master_by_csv(ITEM_MASTER_CSV_PATH) 
 
-def main_2(buy_item_code,buy_item_count):#商品番号&個数入力する処理
-    order=Order(item_master)
-    order.input_order(buy_item_code,buy_item_count)
+def main_2(self,buy_item_code,buy_item_count):#商品番号&個数入力する処理
+    order=Order(self.item_master)
+    order.input_order(self,buy_item_code,buy_item_count)
 
-def main_3():#購入する商品番号&個数表示する処理
-    order=Order(item_master)
-    order.view_order() 
+def main_3(self):#購入する商品番号&個数表示する処理
+    order=Order(self.item_master)
+    order.view_order(self) 
 
 def main_4(self,change_money):#支払金額入力~お釣り受け取りまでの処理
-    order=Order(item_master)
-    order.input_change_money(change_money)
+    order=Order(self.item_master)
+    order.input_change_money(self,change_money)
