@@ -24,13 +24,13 @@ class Order:
     def set_datetime(self):
         self.datetime=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
-    #def add_item_order(self, item_code, item_count):
-    #    self.item_order_list.append(item_code)
-    #    self.item_count_list.append(item_count)
+    def add_item_order(self, item_code, item_count):
+        self.item_order_list.append(item_code)
+        self.item_count_list.append(item_count)
 
-    #def view_item_list(self):
-    #    for item in self.item_order_list:
-    #        print("商品コード:{}".format(item))
+    def view_item_list(self):
+        for item in self.item_order_list:
+            print("商品コード:{}".format(item))
 
     def get_item_data(self,buy_item_code):
             for m in self.item_master:
@@ -67,9 +67,9 @@ class Order:
         eel.pay_money_js("-----------------------------------------------")
 
     def input_change_money(self,pay_money):
-        self.change_money = int(self.pay_money) - self.sum_price
+        self.change_money = int(pay_money) - self.sum_price
         if self.change_money>=0:
-            print("投入金額は" + str(self.pay_money) + '円です')
+            print("投入金額は" + str(pay_money) + '円です')
             print("お釣りは" + str(self.change_money) + '円です')
             eel.change_money_js("お釣り  ：{}円".format(self.change_money))
             print("お買い上げありがとうございます!")
@@ -105,7 +105,6 @@ def add_item_master_by_csv(csv_path):
         print("-----------------------")
         eel.menu_view_js("-----------マスタ登録が失敗-----------")
         sys.exit()
-
 
 def main_1(csv_name):#メニューの登録処理
     ITEM_MASTER_CSV_PATH= './' + csv_name
